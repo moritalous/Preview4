@@ -1,0 +1,12 @@
+{
+  "lang": "ja",
+  "name": "Preview",
+  "short_name": "Preview",
+  "icons": [{
+        "src": "/app-icon.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }],
+  "start_url": "https://moritalous.github.io/Preview4/index.html",
+  "display": "standalone"
+}
