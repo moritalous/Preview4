@@ -1,184 +1,201 @@
 <page>
-  <button id='playFab' onclick={playAll} if={visiblePlayFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
-    <i class="material-icons">play_arrow</i>
-  </button>
-  <button id='pauseFab' onclick={pauseAll} if={visiblePauseFab}  class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
+    <button id='playFab' onclick={playAll} if={visiblePlayFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
+      <i class="material-icons">play_arrow</i>
+    </button>
+    <button id='pauseFab' onclick={pauseAll} if={visiblePauseFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
       <i class="material-icons">pause_arrow</i>
-  </button>
-  
-  <audio id='audio' onended={ended} ontimeupdate={timeupdate}></audio>
+    </button>
 
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <!-- Title -->
-        <span class="mdl-layout-title">Preview</span>
-        <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-          <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
+    <audio id='audio' onended={ended} ontimeupdate={timeupdate}></audio>
+
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--no-drawer-button">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Preview</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
             <i class="material-icons">search</i>
           </label>
-          <div class="mdl-textfield__expandable-holder">
-            <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp" onchange={onchange}>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="mdl-layout__content">
-      <div class="page-content">
-        <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div id="top" name="top" class="mdl-cell mdl-cell--8-col">
-            <div each={ result, i in result.results } class="mdl-card mdl-shadow--4dp" style="width: 100%; margin-bottom: 8px; min-height: auto;">
-              <table border="0" style="width: 100%" id={result.trackId} name={result.trackId}>
-                <tr>
-                  <td style="width: 100px">    
-                    <img src={result.artworkUrl100.replace('http://', 'https://de0gxwwsqe468.cloudfront.net/prod/http/')}>
-                    <!-- <img src={result.artworkUrl100}> -->
-                  </td>
-                  <td style="vertical-align: middle; margin-bottom: 8px">
-                    <div>
-                      {i+1}. {result.trackName}
-                      <button id={'play' + i} onclick={play} class="mdl-button mdl-js-button mdl-button--icon" style="vertical-align: middle;"><i class="material-icons">play_circle_filled</i></button>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp" onchange={onchange}>
                     </div>
-                    <div>
-                      {result.artistName}
-                    </div>
-                    <div>
-                      {result.collectionName}
-                      <a id={'href' + i} href={result.trackViewUrl} target="_blank" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/assets/shared/badges/ja-jp/itunes-sm.svg) no-repeat;width:45px;height:15px;background-size:contain;"></a>
-                    </div>
-                    <div>
-                      <input id={'slider' + i} class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" disabled >
-                    </div>
-                  </td>
-                </tr>
-              </table>
+                </div>
             </div>
-          </div>
+        </header>
+
+        <div class="mdl-layout__content">
+            <div class="page-content">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div id="top" name="top" class="mdl-cell mdl-cell--8-col">
+                        <div each={ result, i in result.results } class="mdl-card mdl-shadow--4dp" style="width: 100%; margin-bottom: 8px; min-height: auto;">
+                            <table border="0" style="width: 100%" id={result.trackId} name={result.trackId}>
+                                <tr>
+                                    <td style="width: 100px">
+                                        <img src={result.artworkUrl100.replace( 'http://', 'https://de0gxwwsqe468.cloudfront.net/prod/http/')}>
+                                        <!-- <img src={result.artworkUrl100}> -->
+                                    </td>
+                                    <td style="vertical-align: middle; margin-bottom: 8px">
+                                        <div>
+                                            {i+1}. {result.trackName}
+                                            <button id={ 'play' + i} onclick={play} class="mdl-button mdl-js-button mdl-button--icon" style="vertical-align: middle;"><i class="material-icons">play_circle_filled</i></button>
+                                        </div>
+                                        <div>
+                                            {result.artistName}
+                                        </div>
+                                        <div>
+                                            {result.collectionName}
+                                            <a id={ 'href' + i} href={result.trackViewUrl} target="_blank" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/assets/shared/badges/ja-jp/itunes-sm.svg) no-repeat;width:45px;height:15px;background-size:contain;"></a>
+                                        </div>
+                                        <div>
+                                            <input id={ 'slider' + i} class="mdl-slider mdl-js-slider" type="range" min="0" max="100" value="0" disabled>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    <script>
-      var that = this
+        <script>
+            var that = this
 
-      visiblePlayFab = true
-      visiblePauseFab = false
+            visiblePlayFab = true
+            visiblePauseFab = false
 
-      this.on('mount', function() {
-          url = "https://itunes.apple.com/lookup?id=1325460835&country=JP&entity=song"
-          this.search(url)
-      });
+            this.on('mount', function() {
+                // url = "https://itunes.apple.com/lookup?id=1325460835&country=JP&entity=song"
+                this.initData()
+            });
 
-      result = ""
-      // queue = []
+            result = ""
+            // queue = []
 
-      playAll(e) {
-        queue = that.result.results.slice()
-        if(queue.length > 0){
-          result = queue[0]
-          
-          location.hash = result.trackId
+            playAll(e) {
+                queue = that.result.results.slice()
+                if (queue.length > 0) {
+                    result = queue[0]
 
-          audio.src = result.previewUrl
-          audio.play()   
-          
-          visiblePlayFab = false
-          visiblePauseFab = true
-        }
-      }
+                    location.hash = result.trackId
 
-      pauseAll(e) {
-        audio.pause()
-        visiblePlayFab = true
-        visiblePauseFab = false
-      }
+                    audio.src = result.previewUrl
+                    audio.play()
 
-      play(e){
-        if(audio.src != e.item.result.previewUrl) {
-          audio.src = e.item.result.previewUrl
-          result = e.item.result
-          location.hash = result.trackId
-          queue = []
-          queue.push(result)
+                    visiblePlayFab = false
+                    visiblePauseFab = true
+                }
+            }
 
-        }
-        audio.play()    
-        visiblePlayFab = false
-        visiblePauseFab = true
-      }
+            pauseAll(e) {
+                audio.pause()
+                visiblePlayFab = true
+                visiblePauseFab = false
+            }
 
-      pause(e){
-        audio.pause()
-        visiblePlayFab = true
-        visiblePauseFab = false
-      }
+            play(e) {
+                if (audio.src != e.item.result.previewUrl) {
+                    audio.src = e.item.result.previewUrl
+                    result = e.item.result
+                    location.hash = result.trackId
+                    queue = []
+                    queue.push(result)
 
-      ended(e) {
-        queue.shift();
-        if(queue.length > 0){
-          result = queue[0]
+                }
+                audio.play()
+                visiblePlayFab = false
+                visiblePauseFab = true
+            }
 
-          location.hash = result.trackId
-          audio.src = result.previewUrl
-          audio.play()   
-        } else {
-          visiblePlayFab = true
-          visiblePauseFab = false
-        }
-      }
+            pause(e) {
+                audio.pause()
+                visiblePlayFab = true
+                visiblePauseFab = false
+            }
 
-      timeupdate(e) {
-        index = that.result.results.indexOf(result)
-        slider = document.getElementById('slider' + (index))
-        value = ( e.target.currentTime / e.target.duration * 100 )
-        if(value){
-          slider.MaterialSlider.change(value)
-        }
-      }
+            ended(e) {
+                queue.shift();
+                if (queue.length > 0) {
+                    result = queue[0]
 
-      observable.on('updateResult', function(e){
-        that.result = e
+                    location.hash = result.trackId
+                    audio.src = result.previewUrl
+                    audio.play()
+                } else {
+                    visiblePlayFab = true
+                    visiblePauseFab = false
+                }
+            }
 
-        if(that.result.results.length > 0){
-          visiblePlayFab = true
-          visiblePauseFab = false
-          location.hash = 'top'
-        } else {
-          visiblePlayFab = false
-          visiblePauseFab = false
-        }
+            timeupdate(e) {
+                index = that.result.results.indexOf(result)
+                slider = document.getElementById('slider' + (index))
+                value = (e.target.currentTime / e.target.duration * 100)
+                if (value) {
+                    slider.MaterialSlider.change(value)
+                }
+            }
 
-        riot.update()
-        componentHandler.upgradeDom();
-      })
+            observable.on('updateResult', function(e) {
+                that.result = e
 
-      onchange(e) {
-        if(!e.target.value) {
-          return;
-        }
-        audio.pause()
-        visiblePlayFab = true
-        visiblePauseFab = false
+                if (that.result.results.length > 0) {
+                    visiblePlayFab = true
+                    visiblePauseFab = false
+                    location.hash = 'top'
+                } else {
+                    visiblePlayFab = false
+                    visiblePauseFab = false
+                }
 
-        search = e.target.value.replace(/ /g, '+')
-        url = "https://itunes.apple.com/search?country=JP&entity=song&term=" + search
-        this.search(url)
-      }
+                riot.update()
+                componentHandler.upgradeDom();
+            })
 
-      search(url) {
-        fetch(url,{mode: 'cors'}).then(function(response) {
-          return response.json();
-        }).then(function(json) {
-          result2 = json
-          result2.results = result2.results.filter(function(element, index, array) {
-                    return element.wrapperType == 'track'
+            onchange(e) {
+                if (!e.target.value) {
+                    return;
+                }
+                audio.pause()
+                visiblePlayFab = true
+                visiblePauseFab = false
+
+                search = e.target.value.replace(/ /g, '+')
+                url = "https://itunes.apple.com/search?country=JP&entity=song&term=" + search
+                this.search(url)
+            }
+
+            initData() {
+                url = 'https://5i396a71kj.execute-api.ap-northeast-1.amazonaws.com/prod/rss'
+
+                fetch(url).then(function(response) {
+                    return response.json();
+                }).then(function(json) {
+                    let idList = '';
+                    json.feed.results.forEach(function(result) {
+                        idList = idList.concat(result.id, ',')
+                    });
+                    that.search('https://itunes.apple.com/lookup?country=JP&entity=song&id=' + idList)
+                    return;
                 })
-          observable.trigger('updateResult', result2)
-        return;
-        })
-      }
-    </script>
+            }
+
+            search(url) {
+                fetch(url, {
+                    mode: 'cors'
+                }).then(function(response) {
+                    return response.json();
+                }).then(function(json) {
+                    result2 = json
+                    result2.results = result2.results.filter(function(element, index, array) {
+                        return element.wrapperType == 'track'
+                    })
+                    observable.trigger('updateResult', result2)
+                    return;
+                })
+            }
+        </script>
 </page>
