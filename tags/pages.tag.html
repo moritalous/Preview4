@@ -22,7 +22,7 @@
                         <i class="material-icons">search</i>
                     </label>
                     <div class="mdl-textfield__expandable-holder">
-                        <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp" onchange={onchange}>
+                        <input class="mdl-textfield__input" type="search" name="sample" id="waterfall-exp" inputmode="search" onchange={onchange}>
                     </div>
                 </div>
             </div>
@@ -41,8 +41,8 @@
                             <table border="0" style="width: 100%" id={result.trackId} name={result.trackId}>
                                 <tr>
                                     <td style="width: 100px">
-                                        <img src={result.artworkUrl100.replace( 'http://', 'https://de0gxwwsqe468.cloudfront.net/prod/http/')}>
-                                        <!-- <img src={result.imageBase64}> -->
+                                        <!-- <img src={result.artworkUrl100.replace( 'http://', 'https://de0gxwwsqe468.cloudfront.net/prod/http/')}> -->
+                                        <img src={result.imageBase64}>
                                     </td>
                                     <td style="vertical-align: middle; margin-bottom: 8px">
                                         <div>
@@ -170,6 +170,8 @@
                 if (!e.target.value) {
                     return;
                 }
+                document.activeElement.blur()
+
                 audio.pause()
                 visiblePlayFab = true
                 visiblePauseFab = false
@@ -182,7 +184,7 @@
             initData() {
                 url =
                     'https://script.google.com/macros/s/AKfycbyM-K3PDBAhYg7aXGDroNXjp5_6SlF5LlFyIhQoHkLhAM6dw16v/exec'
-                url = 'https://5i396a71kj.execute-api.ap-northeast-1.amazonaws.com/prod/rss'
+                // url = 'https://5i396a71kj.execute-api.ap-northeast-1.amazonaws.com/prod/rss'
 
                 fetch(url).then(function (response) {
                     return response.json();
@@ -207,18 +209,18 @@
                         return element.wrapperType == 'track'
                     })
 
-                    // result2.results.forEach(element => {
-                    //     fetch(
-                    //             'https://script.google.com/macros/s/AKfycbycF-fjZRFYUP7ZyDg9Hp1TLljlh9VoSKuMTD84xmjYv3hzcKA/exec?url='
-                    //             .concat(element.artworkUrl100))
-                    //         .then(function (response) {
-                    //             return response.text()
-                    //         }).then(function (text) {
-                    //             element.imageBase64 = text;
-                    //             riot.update()
-                    //             return
-                    //         })
-                    // });
+                    result2.results.forEach(element => {
+                        fetch(
+                                'https://script.google.com/macros/s/AKfycbycF-fjZRFYUP7ZyDg9Hp1TLljlh9VoSKuMTD84xmjYv3hzcKA/exec?url='
+                                .concat(element.artworkUrl100))
+                            .then(function (response) {
+                                return response.text()
+                            }).then(function (text) {
+                                element.imageBase64 = text;
+                                riot.update()
+                                return
+                            })
+                    });
 
                     observable.trigger('updateResult', result2)
                     return;
