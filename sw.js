@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v3';
+var CACHE_NAME = 'my-site-cache-v4';
 var urlsToCache = [
     // 'https://fonts.googleapis.com/icon?family=Material+Icons',
     // 'https://code.getmdl.io/1.3.0/material.indigo-pink.min.css',
