@@ -1,4 +1,4 @@
-<page>
+<page>  
     <button id='playFab' onclick={playAll} if={visiblePlayFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
         style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
         <i class="material-icons">play_arrow</i>
@@ -30,6 +30,10 @@
 
         <div class="mdl-layout__content">
             <div class="page-content">
+                <!-- MDL Spinner Component -->
+                <div style="width: 100vw; text-align: center; padding-top: 25vh" if={visibleSpinner}>
+                    <div class="mdl-spinner mdl-js-spinner is-active"></div>
+                </div>
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                     <div id="top" name="top" class="mdl-cell mdl-cell--8-col">
@@ -67,11 +71,13 @@
         <script>
             var that = this
 
-            visiblePlayFab = true
+            visiblePlayFab = false
             visiblePauseFab = false
+            visibleSpinner = true
 
             this.on('mount', function () {
                 // url = "https://itunes.apple.com/lookup?id=1325460835&country=JP&entity=song"
+                componentHandler.upgradeDom();
                 this.initData()
             });
 
@@ -154,6 +160,7 @@
                     visiblePauseFab = false
                 }
 
+                visibleSpinner = false
                 riot.update()
                 componentHandler.upgradeDom();
             })

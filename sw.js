@@ -1,10 +1,10 @@
-var CACHE_NAME = 'my-site-cache-v2';
+var CACHE_NAME = 'my-site-cache-v3';
 var urlsToCache = [
-    'https://fonts.googleapis.com/icon?family=Material+Icons',
-    'https://code.getmdl.io/1.3.0/material.indigo-pink.min.css',
-    'https://code.getmdl.io/1.3.0/material.min.js',
-    'https://cdn.jsdelivr.net/npm/riot@3.9.0/riot+compiler.js',
-    'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
+    // 'https://fonts.googleapis.com/icon?family=Material+Icons',
+    // 'https://code.getmdl.io/1.3.0/material.indigo-pink.min.css',
+    // 'https://code.getmdl.io/1.3.0/material.min.js',
+    // 'https://cdn.jsdelivr.net/npm/riot@3.9.0/riot+compiler.js',
+    // 'https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js',
     'tags/pages.tag.html'
 ];
 
