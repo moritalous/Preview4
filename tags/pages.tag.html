@@ -1,9 +1,11 @@
 <page>
-    <button id='playFab' onclick={playAll} if={visiblePlayFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
-      <i class="material-icons">play_arrow</i>
+    <button id='playFab' onclick={playAll} if={visiblePlayFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+        style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
+        <i class="material-icons">play_arrow</i>
     </button>
-    <button id='pauseFab' onclick={pauseAll} if={visiblePauseFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
-      <i class="material-icons">pause_arrow</i>
+    <button id='pauseFab' onclick={pauseAll} if={visiblePauseFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+        style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
+        <i class="material-icons">pause_arrow</i>
     </button>
 
     <audio id='audio' onended={ended} ontimeupdate={timeupdate}></audio>
@@ -17,8 +19,8 @@
                 <div class="mdl-layout-spacer"></div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="waterfall-exp">
-            <i class="material-icons">search</i>
-          </label>
+                        <i class="material-icons">search</i>
+                    </label>
                     <div class="mdl-textfield__expandable-holder">
                         <input class="mdl-textfield__input" type="text" name="sample" id="waterfall-exp" onchange={onchange}>
                     </div>
@@ -35,13 +37,14 @@
                             <table border="0" style="width: 100%" id={result.trackId} name={result.trackId}>
                                 <tr>
                                     <td style="width: 100px">
-                                        <img src={result.artworkUrl100.replace( 'http://', 'https://de0gxwwsqe468.cloudfront.net/prod/http/')}>
-                                        <!-- <img src={result.artworkUrl100}> -->
+                                        <img src={result.imageBase64}>
                                     </td>
                                     <td style="vertical-align: middle; margin-bottom: 8px">
                                         <div>
                                             {i+1}. {result.trackName}
-                                            <button id={ 'play' + i} onclick={play} class="mdl-button mdl-js-button mdl-button--icon" style="vertical-align: middle;"><i class="material-icons">play_circle_filled</i></button>
+                                            <button id={ 'play' + i} onclick={play} class="mdl-button mdl-js-button mdl-button--icon" style="vertical-align: middle;">
+                                                <i class="material-icons">play_circle_filled</i>
+                                            </button>
                                         </div>
                                         <div>
                                             {result.artistName}
@@ -67,7 +70,7 @@
             visiblePlayFab = true
             visiblePauseFab = false
 
-            this.on('mount', function() {
+            this.on('mount', function () {
                 // url = "https://itunes.apple.com/lookup?id=1325460835&country=JP&entity=song"
                 this.initData()
             });
@@ -139,7 +142,7 @@
                 }
             }
 
-            observable.on('updateResult', function(e) {
+            observable.on('updateResult', function (e) {
                 that.result = e
 
                 if (that.result.results.length > 0) {
@@ -169,13 +172,14 @@
             }
 
             initData() {
-                url = 'https://5i396a71kj.execute-api.ap-northeast-1.amazonaws.com/prod/rss'
+                url =
+                    'https://script.google.com/macros/s/AKfycbyM-K3PDBAhYg7aXGDroNXjp5_6SlF5LlFyIhQoHkLhAM6dw16v/exec'
 
-                fetch(url).then(function(response) {
+                fetch(url).then(function (response) {
                     return response.json();
-                }).then(function(json) {
+                }).then(function (json) {
                     let idList = '';
-                    json.feed.results.forEach(function(result) {
+                    json.feed.results.forEach(function (result) {
                         idList = idList.concat(result.id, ',')
                     });
                     that.search('https://itunes.apple.com/lookup?country=JP&entity=song&id=' + idList)
@@ -186,13 +190,27 @@
             search(url) {
                 fetch(url, {
                     mode: 'cors'
-                }).then(function(response) {
+                }).then(function (response) {
                     return response.json();
-                }).then(function(json) {
+                }).then(function (json) {
                     result2 = json
-                    result2.results = result2.results.filter(function(element, index, array) {
+                    result2.results = result2.results.filter(function (element, index, array) {
                         return element.wrapperType == 'track'
                     })
+
+                    result2.results.forEach(element => {
+                        fetch(
+                                'https://script.google.com/macros/s/AKfycbycF-fjZRFYUP7ZyDg9Hp1TLljlh9VoSKuMTD84xmjYv3hzcKA/exec?url='
+                                .concat(element.artworkUrl100))
+                            .then(function (response) {
+                                return response.text()
+                            }).then(function (text) {
+                                element.imageBase64 = text;
+                                riot.update()
+                                return
+                            })
+                    });
+
                     observable.trigger('updateResult', result2)
                     return;
                 })
