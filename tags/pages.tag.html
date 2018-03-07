@@ -1,4 +1,4 @@
-<page>  
+<page>
     <button id='playFab' onclick={playAll} if={visiblePlayFab} class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
         style="position: absolute;right: 20px; bottom: 20px;z-index:999;">
         <i class="material-icons">play_arrow</i>
@@ -186,7 +186,9 @@
                     'https://script.google.com/macros/s/AKfycbyM-K3PDBAhYg7aXGDroNXjp5_6SlF5LlFyIhQoHkLhAM6dw16v/exec'
                 // url = 'https://5i396a71kj.execute-api.ap-northeast-1.amazonaws.com/prod/rss'
 
-                fetch(url).then(function (response) {
+                fetch(url, {
+                    mode: 'cors'
+                }).then(function (response) {
                     return response.json();
                 }).then(function (json) {
                     let idList = '';
@@ -212,7 +214,9 @@
                     result2.results.forEach(element => {
                         fetch(
                                 'https://script.google.com/macros/s/AKfycbycF-fjZRFYUP7ZyDg9Hp1TLljlh9VoSKuMTD84xmjYv3hzcKA/exec?url='
-                                .concat(element.artworkUrl100))
+                                .concat(element.artworkUrl100), {
+                                    mode: 'cors'
+                                })
                             .then(function (response) {
                                 return response.text()
                             }).then(function (text) {
