@@ -37,7 +37,7 @@
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                     <div id="top" name="top" class="mdl-cell mdl-cell--8-col">
-                        <div each={ result, i in result.results } class="mdl-card mdl-shadow--4dp" style="width: 100%; margin-bottom: 8px; min-height: auto;">
+                        <div each={ result, i in result.results } class="mdl-card mdl-shadow--4dp" style="width: 100%; margin-bottom: 8px; min-height: 100px;">
                             <table border="0" style="width: 100%" id={result.trackId} name={result.trackId}>
                                 <tr>
                                     <td style="width: 100px">
@@ -191,7 +191,7 @@
                 }).then(function (response) {
                     return response.json();
                 }).then(function (json) {
-                    let idList = '';
+                    var idList = '';
                     json.feed.results.forEach(function (result) {
                         idList = idList.concat(result.id, ',')
                     });
